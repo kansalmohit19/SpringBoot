@@ -37,11 +37,6 @@ public class UserService {
 		log.info("UserService ::: findUserById {}", userId);
 		return userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
 	}
-
-	public UserEntity findUserByUsername(String username) {
-		log.info("UserService ::: findUserByUsername {}", username);
-		return userRepository.getUserByUsername(username);
-	}
 	
 	public void updateUser(Long userId, UserEntity inputUserDetails) {
 		log.info("UserService ::: updateUser {}", userId);
@@ -64,12 +59,20 @@ public class UserService {
 
 		}
 	}
+
+	public UserEntity findUserByUsername(String username) {
+		log.info("UserService ::: findUserByUsername {}", username);
+		return userRepository.getUserByUsername(username);
+	}
 	
-	public void deleteUser_another(Long userId) {
-		log.info("UserService ::: deleteUser_another {}", userId);
-		UserEntity user = findUserById(userId);
-		userRepository.delete(user);
-		log.info("Deleted successfully");
+	public UserEntity findUserByEmail(String username) {
+		log.info("UserService ::: findUserByEmail {}", username);
+		return userRepository.getUserByEmail(username);
+	}
+	
+	public UserEntity findUserByUsernameOrEmail(String input) {
+		log.info("UserService ::: findUserByUsernameOrEmail {}", input);
+		return userRepository.getUserByUsernameOrEmail(input, input);
 	}
 
 }

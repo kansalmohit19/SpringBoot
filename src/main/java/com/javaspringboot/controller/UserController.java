@@ -35,12 +35,6 @@ public class UserController {
 		return userService.findUserById(userId);
 	}
 	
-	@GetMapping("username/{username}")
-	public void getUserByUsername(@PathVariable String username) {
-		log.info("User Controller ::: getUserByUsername {}", username);
-		//return userService.findUserByUsername(username);
-	}
-	
 	@PutMapping("{userId}")
 	public void updateUser(@PathVariable Long userId, @RequestBody  UserEntity user) {
 		log.info("User Controller ::: updateUser {} {}", userId, user.getEmail());
@@ -51,6 +45,24 @@ public class UserController {
 	public void deleteUser(@PathVariable Long userId) {
 		log.info("User Controller ::: deleteUser {}", userId);
 		userService.deleteUser(userId);
+	}
+	
+	@GetMapping("/username/{username}")
+	public UserEntity getUserByUsername(@PathVariable String username) {
+		log.info("User Controller ::: getUserByUsername {}", username);
+		return userService.findUserByUsername(username);
+	}
+	
+	@GetMapping("/email/{email}")
+	public UserEntity getUserByEmail(@PathVariable String email) {
+		log.info("User Controller ::: getUserByEmail {}", email);
+		return userService.findUserByEmail(email);
+	}
+	
+	@GetMapping("/usernameemail/{input}")
+	public UserEntity getUserByUsernameOrEmail(@PathVariable String input) {
+		log.info("User Controller ::: getUserByUsernameOrEmail {}", input);
+		return userService.findUserByUsernameOrEmail(input);
 	}
 
 }

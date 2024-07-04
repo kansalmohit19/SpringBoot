@@ -7,4 +7,9 @@ import com.javaspringboot.entities.UserEntity;
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
 	public UserEntity getUserByUsername(String username);
+
+	public UserEntity getUserByEmail(String email);
+	
+	public UserEntity getUserByUsernameOrEmail(String username, String email);
+	
 }
