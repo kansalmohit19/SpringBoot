@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.javaspringboot.entities.CategoryEntity;
+import com.javaspringboot.exception.ResourceNotFoundException;
 import com.javaspringboot.repository.CategoryRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +31,7 @@ public class CategoryService {
 
 	public CategoryEntity findCategoryById(Long categoryId) {
 		log.info("CategoryService ::: findCategoryById {}", categoryId);
-		return categoryRepository.findById(categoryId).orElseThrow(() -> new RuntimeException("No category found"));
+		return categoryRepository.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException("No category found"));
 	}
 
 	public void updateCategoryById(Long categoryId, CategoryEntity inputCategory) {
@@ -45,7 +46,8 @@ public class CategoryService {
 
 	public void deleteCategoryById(Long categoryId) {
 		log.info("CategoryService ::: deleteCategoryById {}}", categoryId);
-		categoryRepository.deleteById(categoryId);
+		CategoryEntity dbCategory = findCategoryById(categoryId);
+		categoryRepository.delete(dbCategory);
 		log.info("CategoryService ::: category deleted successfully");
 	}
 

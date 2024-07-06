@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.javaspringboot.entities.ProductEntity;
+import com.javaspringboot.exception.ResourceNotFoundException;
 import com.javaspringboot.repository.ProductRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +34,7 @@ public class ProductService {
 
 	public ProductEntity findProductById(Long productId) {
 		log.info("ProductService ::: findProductById");
-		return productRepository.findById(productId).orElseThrow(() -> new RuntimeException("No product found"));
+		return productRepository.findById(productId).orElseThrow(() -> new ResourceNotFoundException("No product found"));
 	}
 
 	public void updateProductById(Long productId, ProductEntity inputProduct) {
@@ -52,10 +53,8 @@ public class ProductService {
 	public void deleteProductById(Long productId) {
 		log.info("ProductService ::: deleteProductById {}", productId);
 		ProductEntity dbProduct = findProductById(productId);
-		if (dbProduct != null) {
-			productRepository.delete(dbProduct);
-			log.info("ProductService ::: product deleted successfully");
-		}
+		productRepository.delete(dbProduct);
+		log.info("ProductService ::: product deleted successfully");
 	}
 	
 	public List<ProductEntity> findProductByCategoryName(String categoryName) {
