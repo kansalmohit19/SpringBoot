@@ -61,4 +61,16 @@ public class ProductController {
 		log.info("ProductController ::: findProductByCategoryName {}", name);
 		return productService.findProductByCategoryName(name);
 	}
+	
+	@GetMapping("/barcode/{barcode}")
+	public List<ProductEntity> findProductByBarcode(@PathVariable String barcode){
+		log.info("ProductController ::: findProductByBarcode {}", barcode);
+		return productService.findProductByBarcode(barcode);
+	}
+	
+	@GetMapping("/barcode2/{barcode}")
+	public List<ProductEntity> findProductByBarcode2(@PathVariable String barcode){
+		log.info("ProductController ::: findProductByBarcode {}", barcode);
+		return productService.findProductByBarcode2(barcode);
+	}
 }

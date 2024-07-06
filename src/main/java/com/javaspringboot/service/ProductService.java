@@ -60,7 +60,17 @@ public class ProductService {
 	
 	public List<ProductEntity> findProductByCategoryName(String categoryName) {
 		log.info("ProductService ::: findProductByCategoryName");
-		return productRepository.findProductByCategoryName(categoryName);
+		return productRepository.findProductEntityByCategoryName(categoryName);
+	}
+
+	public List<ProductEntity> findProductByBarcode(String barcode) {
+		log.info("ProductService ::: findProductByBarcode");
+		return productRepository.fetchProductsUsingJPQL(barcode);
+	}
+	
+	public List<ProductEntity> findProductByBarcode2(String barcode) {
+		log.info("ProductService ::: findProductByBarcode2");
+		return productRepository.fetchProductsUsingNative(barcode);
 	}
 
 }
