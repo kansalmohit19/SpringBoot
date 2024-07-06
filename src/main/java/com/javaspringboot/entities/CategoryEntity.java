@@ -25,7 +25,7 @@ public class CategoryEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long Id;
-	private String categoryName;
+	private String name;
 	
 	//one to many
 	@OneToMany(mappedBy = "category")

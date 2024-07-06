@@ -37,7 +37,7 @@ public class CategoryService {
 		log.info("CategoryService ::: updateCategoryById {} {}", categoryId, inputCategory.toString());
 		CategoryEntity dbCategory = findCategoryById(categoryId);
 		if (dbCategory != null) {
-			dbCategory.setCategoryName(inputCategory.getCategoryName());
+			dbCategory.setName(inputCategory.getName());
 			categoryRepository.save(dbCategory);
 			log.info("CategoryService ::: category updated successfully");
 		}

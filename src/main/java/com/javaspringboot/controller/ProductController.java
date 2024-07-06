@@ -55,4 +55,10 @@ public class ProductController {
 		log.info("ProductController ::: deleteProductById {}", productId);
 		productService.deleteProductById(productId);
 	}
+	
+	@GetMapping("/category/{name}")
+	public List<ProductEntity> findProductByCategoryName(@PathVariable String name) {
+		log.info("ProductController ::: findProductByCategoryName {}", name);
+		return productService.findProductByCategoryName(name);
+	}
 }

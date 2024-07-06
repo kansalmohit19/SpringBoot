@@ -57,5 +57,10 @@ public class ProductService {
 			log.info("ProductService ::: product deleted successfully");
 		}
 	}
+	
+	public List<ProductEntity> findProductByCategoryName(String categoryName) {
+		log.info("ProductService ::: findProductByCategoryName");
+		return productRepository.findProductByCategoryName(categoryName);
+	}
 
 }
