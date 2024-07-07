@@ -4,11 +4,14 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.javaspringboot.entities.ProductEntity;
 import com.javaspringboot.exception.ResourceNotFoundException;
 import com.javaspringboot.repository.ProductRepository;
+import com.javaspringboot.responses.ProductBoResponse;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -34,7 +37,8 @@ public class ProductService {
 
 	public ProductEntity findProductById(Long productId) {
 		log.info("ProductService ::: findProductById");
-		return productRepository.findById(productId).orElseThrow(() -> new ResourceNotFoundException("No product found"));
+		return productRepository.findById(productId)
+				.orElseThrow(() -> new ResourceNotFoundException("No product found"));
 	}
 
 	public void updateProductById(Long productId, ProductEntity inputProduct) {
@@ -56,7 +60,7 @@ public class ProductService {
 		productRepository.delete(dbProduct);
 		log.info("ProductService ::: product deleted successfully");
 	}
-	
+
 	public List<ProductEntity> findProductByCategoryName(String categoryName) {
 		log.info("ProductService ::: findProductByCategoryName");
 		return productRepository.findProductEntityByCategoryName(categoryName);
@@ -66,10 +70,20 @@ public class ProductService {
 		log.info("ProductService ::: findProductByBarcode");
 		return productRepository.fetchProductsUsingJPQL(barcode);
 	}
-	
+
 	public List<ProductEntity> findProductByBarcode2(String barcode) {
 		log.info("ProductService ::: findProductByBarcode2");
 		return productRepository.fetchProductsUsingNative(barcode);
+	}
+
+	public ProductBoResponse findProductByPagination(PageRequest pageRequest) {
+		Page<ProductEntity> page = productRepository.findAll(pageRequest);
+		
+		ProductBoResponse response = new ProductBoResponse();
+		response.setTotalCount(page.getTotalElements());
+		response.setTotalPages(page.getTotalPages());
+		response.setListOfProducts(page.getContent());
+		return response;
 	}
 
 }
