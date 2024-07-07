@@ -1,6 +1,9 @@
 package com.javaspringboot.entities;
 
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -16,7 +19,8 @@ import lombok.ToString;
 @Entity
 @ToString
 @Table(name = "review")
-public class ReviewEntity {
+@EntityListeners(AuditingEntityListener.class)
+public class ReviewEntity extends Auditable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

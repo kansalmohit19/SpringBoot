@@ -2,9 +2,12 @@ package com.javaspringboot.entities;
 
 import java.util.List;
 
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue; 
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -21,7 +24,8 @@ import lombok.ToString;
 @Entity
 @ToString
 @Table(name = "product")
-public class ProductEntity {
+@EntityListeners(AuditingEntityListener.class)
+public class ProductEntity extends Auditable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
